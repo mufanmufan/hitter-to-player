@@ -10,7 +10,7 @@
   <meta property="og:type" content="website">
   <title>From Hitter to Player</title>
   <link rel="preload" href="static/fonts/manrope-600.ttf" as="font" type="font/ttf" crossorigin>
-  <link rel="stylesheet" href="static/css/style.css?v=12">
+  <link rel="stylesheet" href="static/css/style.css?v=13">
   <script src="static/js/main.js?v=13" defer></script>
 </head>
 <body>
@@ -19,9 +19,9 @@
     <div class="container header-inner">
       <a class="project-brand" href="#top" aria-label="RoboParty Lab, back to top"><img src="assets/RoboParty%20LAB.svg" alt="RoboParty Lab" width="1376" height="254"></a>
       <nav id="site-menu" class="site-menu" aria-label="Main navigation">
-        <a href="#matches">Real-world play</a>
-        <a href="#target-control">Execution</a>
-        <a href="#method">Method</a>
+        <a href="#matches">Matches</a>
+        <a href="#target-control">Landing targets</a>
+        <a href="#method">Training</a>
         <a href="#results">Results</a>
         <a class="nav-paper" href="assets/paper/from-hitter-to-player.pdf" target="_blank" rel="noopener">Paper <svg class="icon" aria-hidden="true"><use href="static/icons/lucide.svg#arrow-up-right"></use></svg></a>
       </nav>
@@ -126,7 +126,7 @@
           </figure>
           <figure class="simulation-screen">
             <div class="media-frame"><video id="simulation-video" controls muted loop playsinline preload="none" poster="assets/images/posters/simulation.jpg" aria-label="Simulated humanoid returning balls to changing landing targets"><source src="assets/videos/web/simulation.mp4" type="video/mp4"></video></div>
-            <div class="media-caption"><span>Continuous target switching</span><span class="recording-tag">Simulation</span></div>
+            <div class="media-caption"><span>Changing landing targets</span><span class="recording-tag">Simulation</span></div>
           </figure>
         </div>
       </div>
@@ -134,12 +134,12 @@
 
     <section id="method" class="section method-section" aria-labelledby="method-heading">
       <div class="container">
-        <div class="section-heading"><h2 id="method-heading">Training</h2><p>The strategy chooses a landing target. The motor policy executes the return.</p></div>
+        <div class="section-heading"><h2 id="method-heading">Three-stage training</h2><p>The strategy chooses where the ball should land; the motor policy executes the return.</p></div>
         <figure class="research-figure"><button class="figure-button" type="button" data-enlarge="assets/images/method_overview.png" data-caption="Three-stage training and the persistent landing-target interface" aria-label="Enlarge the method overview" title="Enlarge the method overview"><img src="assets/images/method_overview.png" alt="Target-conditioned motor training, interaction-driven motor self-play, and frozen-executor strategic self-play" width="1855" height="834" loading="lazy"></button></figure>
         <div class="learning-stages">
-          <article><span class="stage-number">I</span><h3>Motor training</h3><p>Train on prescribed incoming balls and continuous landing targets.</p></article>
-          <article><span class="stage-number">II</span><h3>Motor self-play</h3><p>Train on rally-generated balls. Targets remain independent of opponent position.</p></article>
-          <article><span class="stage-number">III</span><h3>Strategy training</h3><p>Freeze the motor stack. Learn where to return through competitive self-play.</p></article>
+          <article><span class="stage-number">I</span><h3>Motor training</h3><p>The motor policy first learns to return prescribed balls to requested landing targets.</p></article>
+          <article><span class="stage-number">II</span><h3>Motor self-play</h3><p>Self-play adapts it to rally-generated balls, with targets sampled independently of opponent position.</p></article>
+          <article><span class="stage-number">III</span><h3>Strategic self-play</h3><p>The motor stack is then frozen while competitive self-play learns where to return.</p></article>
         </div>
       </div>
     </section>
@@ -147,10 +147,10 @@
     <section id="results" class="section results-section" aria-labelledby="results-heading">
       <div class="container">
         <div class="section-heading"><h2 id="results-heading">Results</h2></div>
-        <nav class="result-navigation" aria-label="Research results"><a href="#result-execution">Target execution</a><a href="#result-rallies">Motor self-play</a><a href="#result-competition">Competitive selection</a><a href="#result-sensitivity">Strategic sensitivity</a></nav>
+        <nav class="result-navigation" aria-label="Research results"><a href="#result-execution">Landing accuracy</a><a href="#result-rallies">Motor self-play</a><a href="#result-competition">Strategy comparison</a><a href="#result-sensitivity">Target selection</a></nav>
 
         <article id="result-execution" class="result-block" aria-labelledby="execution-result-heading">
-          <div class="result-heading"><h3 id="execution-result-heading">Landing accuracy</h3></div>
+          <div class="result-heading"><h3 id="execution-result-heading">Landing accuracy</h3><p>Requested targets and achieved landing positions in simulation and on hardware.</p></div>
           <div class="landing-results">
             <div class="domain-result">
               <div class="domain-heading"><h4>Simulation</h4></div>
@@ -165,11 +165,12 @@
               <dl class="result-metrics"><div><dt>Within 45 cm</dt><dd>69.3<span>%</span></dd></div><div class="metric-wide"><dt>Landing error, mean &plusmn; SD</dt><dd>36.7 <span>&plusmn; 17.1 cm</span></dd></div></dl>
             </div>
           </div>
-          <p class="evaluation-note">Accuracy and error use only legal first landings on the opponent half; legal landing rate counts all attempts. Hardware accuracy does not measure overall return success. The 30 cm and 45 cm thresholds are not directly comparable. Error is mean &plusmn; sample SD.</p>
+          <p class="evaluation-note">Accuracy and error are measured only on legal first landings on the opponent half.</p>
+          <details class="evaluation-details"><summary>Measurement details</summary><p>Legal landing rate counts all attempts. Hardware accuracy is conditional on legal first landings and does not measure overall return success. Simulation uses a 30 cm accuracy threshold and hardware uses 45 cm; these rates are not directly comparable. Landing error is mean &plusmn; sample SD.</p></details>
         </article>
 
         <article id="result-rallies" class="result-block" aria-labelledby="rally-result-heading">
-          <div class="result-heading"><h3 id="rally-result-heading">Motor self-play</h3><p>Self-play improves landing accuracy and legal returns at every displayed rally index. Both continuation branches start from the same Stage-I checkpoint and use the same additional training budget.</p></div>
+          <div class="result-heading"><h3 id="rally-result-heading">Motor self-play</h3><p>Motor self-play improves landing accuracy and legal-return rate compared with prescribed continuation from the same Stage-I checkpoint and with the same additional training budget.</p></div>
           <ul class="plot-legend" aria-label="Motor training conditions"><li><span class="legend-mark stage-one" aria-hidden="true"></span>Stage I</li><li><span class="legend-mark prescribed" aria-hidden="true"></span>Prescribed continuation</li><li><span class="legend-mark self-play" aria-hidden="true"></span>Interaction-driven self-play</li></ul>
           <div class="rally-results">
             <figure><button class="figure-button" type="button" data-enlarge="assets/images/result-rally-accuracy.png" data-caption="Target-landing accuracy across rally depth: three training conditions, mean plus or minus 1 SEM" aria-label="Enlarge rally landing accuracy" title="Enlarge rally landing accuracy"><img src="assets/images/result-rally-accuracy.png" alt="Interaction-driven self-play has higher target-landing accuracy than Stage I and prescribed continuation at each displayed rally index" width="900" height="860" loading="lazy"></button></figure>
@@ -179,14 +180,14 @@
         </article>
 
         <article id="result-competition" class="result-block" aria-labelledby="competition-result-heading">
-          <div class="result-heading"><h3 id="competition-result-heading">Strategy comparison</h3><p>The learned strategy wins more points against all three baselines. Every selector uses the same frozen motor stack.</p></div>
+          <div class="result-heading"><h3 id="competition-result-heading">Strategy comparison in simulation</h3><p>In simulated games, the learned selector wins more points than Center, Random, and Away using the same frozen motor stack.</p></div>
           <figure class="win-rate-figure"><button class="figure-button" type="button" data-enlarge="assets/images/competitive_selection_results.png" data-caption="Learned selector point win rates under matched frozen motor execution" aria-label="Enlarge competitive results" title="Enlarge competitive results"><img src="assets/images/competitive_selection_results.png" alt="Learned target selection wins 88.9 plus or minus 1.4 percent against Center, 81.9 plus or minus 2.0 percent against Random, and 73.1 plus or minus 4.3 percent against Away" width="1084" height="429" loading="lazy"></button></figure>
-          <dl class="baseline-definitions"><div><dt>Center</dt><dd class="mobile-win-rate">88.9<span> &plusmn; 1.4%</span></dd><dd>Always aims at Zone 4.</dd></div><div><dt>Random</dt><dd class="mobile-win-rate">81.9<span> &plusmn; 2.0%</span></dd><dd>Selects among nine regions uniformly.</dd></div><div><dt>Away</dt><dd class="mobile-win-rate">73.1<span> &plusmn; 4.3%</span></dd><dd>Aims farthest from the opponent.</dd></div></dl>
+          <dl class="baseline-definitions"><div><dt>Center</dt><dd class="mobile-win-rate">88.9<span> &plusmn; 1.4%</span></dd><dd>Always selects the center region.</dd></div><div><dt>Random</dt><dd class="mobile-win-rate">81.9<span> &plusmn; 2.0%</span></dd><dd>Selects one of nine regions at random.</dd></div><div><dt>Away</dt><dd class="mobile-win-rate">73.1<span> &plusmn; 4.3%</span></dd><dd>Selects the region farthest from the opponent.</dd></div></dl>
           <details class="evaluation-details"><summary>Evaluation protocol</summary><p>200 simulated points per pair per seed, eight seeds, balanced across table side and initial receiver. Win rates are mean &plusmn; sample SD across seeds. The learned strategy selects by argmax, without target jitter. The motor actor, observation normalizer, planner, and joint controller are fixed for all selectors.</p></details>
         </article>
 
         <article id="result-sensitivity" class="result-block" aria-labelledby="sensitivity-result-heading">
-          <div class="result-heading"><h3 id="sensitivity-result-heading">Target selection</h3><p>Changing opponent position or the previous target shifts selection toward the opposite side.</p></div>
+          <div class="result-heading"><h3 id="sensitivity-result-heading">Effect of opponent position and previous target</h3><p>In these controlled tests, target selection tends to shift opposite the opponent's position or the previous target.</p></div>
           <div class="sensitivity-group"><div class="intervention-heading"><h4>Change opponent position</h4><p>Previous target held at center.</p></div><div class="sensitivity-maps">
             <figure><figcaption>Opponent left</figcaption><button class="figure-button" type="button" data-enlarge="assets/images/result-opponent-left.png" data-caption="Opponent left; previous target centered. Empirical target-selection probabilities from 500 categorical samples." aria-label="Enlarge opponent-left selection map" title="Enlarge opponent-left selection map"><img src="assets/images/result-opponent-left.png" alt="Opponent on the left shifts selection probability toward right-side landing regions" width="1105" height="745" loading="lazy"></button></figure>
             <figure><figcaption>Opponent right</figcaption><button class="figure-button" type="button" data-enlarge="assets/images/result-opponent-right.png" data-caption="Opponent right; previous target centered. Empirical target-selection probabilities from 500 categorical samples." aria-label="Enlarge opponent-right selection map" title="Enlarge opponent-right selection map"><img src="assets/images/result-opponent-right.png" alt="Opponent on the right shifts selection probability toward left-side landing regions" width="1085" height="745" loading="lazy"></button></figure>

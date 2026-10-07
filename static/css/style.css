@@ -116,7 +116,7 @@ figcaption { display: flex; justify-content: space-between; gap: 16px; margin-to
 .learning-stages article { position: relative; padding: 18px 0 0 33px; border-top: 1px solid #d8dde4; }
 .stage-number { position: absolute; top: 19px; left: 0; color: #687480; font-size: 17px; font-weight: 600; }
 .learning-stages h3 { font-size: 20px; }
-.learning-stages p { margin-top: 12px; color: #5c6875; font-size: 17px; line-height: 1.75; }
+.learning-stages p { margin-top: 12px; color: #5c6875; font-size: 18px; line-height: 1.75; }
 .result-navigation { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); border-block: 1px solid var(--line); }
 .result-navigation a { display: flex; align-items: center; justify-content: center; min-height: 58px; padding: 12px; color: var(--muted); font-size: 16px; font-weight: 600; text-align: center; line-height: 1.6; }
 .result-navigation a:hover { color: var(--accent); background: var(--soft); }
