@@ -132,11 +132,12 @@
   const matchTabs = document.querySelector('.match-tabs');
   setupTabs(matchTabs, document.querySelector('#match-panel'), (button) => {
     const recording = button.dataset.match;
+    const asset = button.dataset.asset || 'match-' + recording;
     const game = button.querySelector('.game-number').firstChild.textContent.trim();
     const label = 'Game ' + game + ' / G1 11 : Human ' + button.dataset.human;
     document.querySelector('#match-label').textContent = label;
-    changeVideo(document.querySelector('#match-video'), 'assets/videos/web/match-' + recording + '.mp4',
-      'assets/images/posters/match-' + recording + '.jpg', label);
+    changeVideo(document.querySelector('#match-video'), 'assets/videos/web/' + asset + '.mp4',
+      'assets/images/posters/' + asset + '.jpg', label);
   }, () => getComputedStyle(matchTabs).gridTemplateColumns.split(' ').length);
 
   const menuButton = document.querySelector('.menu-toggle');
