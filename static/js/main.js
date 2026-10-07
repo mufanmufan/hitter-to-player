@@ -189,32 +189,4 @@
         event.clientY < bounds.top || event.clientY > bounds.bottom) dialog.close();
   });
 
-  const copyButton = document.querySelector('.copy-button');
-  const copyStatus = document.querySelector('#copy-status');
-  let copyTimeout;
-  copyButton.addEventListener('click', async () => {
-    const citation = document.querySelector('#citation code').textContent;
-    let copied = false;
-    try {
-      await navigator.clipboard.writeText(citation);
-      copied = true;
-    } catch {
-      const textarea = document.createElement('textarea');
-      textarea.value = citation;
-      textarea.setAttribute('readonly', '');
-      textarea.style.cssText = 'position:fixed;left:-9999px;top:0';
-      document.body.appendChild(textarea);
-      textarea.select();
-      copied = document.execCommand('copy');
-      textarea.remove();
-      copyButton.focus();
-    }
-    copyStatus.textContent = copied ? 'BibTeX copied.' : 'Copy unavailable. Select the citation text.';
-    copyButton.querySelector('use').setAttribute('href', iconPath + (copied ? 'check' : 'copy'));
-    window.clearTimeout(copyTimeout);
-    copyTimeout = window.setTimeout(() => {
-      copyStatus.textContent = '';
-      copyButton.querySelector('use').setAttribute('href', iconPath + 'copy');
-    }, 2400);
-  });
 })();
