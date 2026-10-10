@@ -63,7 +63,7 @@
   }
   </script>
   <link rel="preload" href="static/fonts/manrope-600.ttf" as="font" type="font/ttf" crossorigin>
-  <link rel="stylesheet" href="static/css/style.css?v=13">
+  <link rel="stylesheet" href="static/css/style.css?v=14">
   <script src="static/js/main.js?v=13" defer></script>
 </head>
 <body>
@@ -72,10 +72,10 @@
     <div class="container header-inner">
       <a class="project-brand" href="#top" aria-label="RoboParty Lab, back to top"><img src="assets/RoboParty%20LAB.svg" alt="RoboParty Lab" width="1376" height="254"></a>
       <nav id="site-menu" class="site-menu" aria-label="Main navigation">
+        <a href="#result-competition">Results</a>
         <a href="#matches">Matches</a>
         <a href="#target-control">Landing targets</a>
         <a href="#method">Training</a>
-        <a href="#results">Results</a>
         <a class="nav-paper" href="assets/paper/from-hitter-to-player.pdf" target="_blank" rel="noopener">Paper <svg class="icon" aria-hidden="true"><use href="static/icons/lucide.svg#arrow-up-right"></use></svg></a>
       </nav>
       <button class="icon-button menu-toggle" type="button" aria-expanded="false" aria-controls="site-menu" aria-label="Open navigation" title="Open navigation"><svg class="icon" aria-hidden="true"><use href="static/icons/lucide.svg#menu"></use></svg></button>
@@ -128,6 +128,17 @@
       </div>
     </section>
 
+    <section id="result-competition" class="section competition-section" aria-labelledby="competition-result-heading">
+      <div class="container">
+        <div class="competition-layout">
+          <div class="competition-intro"><h2 id="competition-result-heading">Strategy comparison in simulation</h2><p>The learned strategy wins more points against Center, Random, and Away while every selector uses the same frozen motor stack.</p></div>
+          <figure class="win-rate-figure"><button class="figure-button" type="button" data-enlarge="assets/images/competitive_selection_results.png" data-caption="Learned selector point win rates under matched frozen motor execution" aria-label="Enlarge competitive results" title="Enlarge competitive results"><img src="assets/images/competitive_selection_results.png" alt="Learned target selection wins 88.9 plus or minus 1.4 percent against Center, 81.9 plus or minus 2.0 percent against Random, and 73.1 plus or minus 4.3 percent against Away" width="1084" height="429" loading="lazy"></button></figure>
+        </div>
+        <dl class="baseline-definitions"><div><dt>vs. Center</dt><dd class="mobile-win-rate">88.9<span> &plusmn; 1.4%</span></dd><dd>Always selects the center region.</dd></div><div><dt>vs. Random</dt><dd class="mobile-win-rate">81.9<span> &plusmn; 2.0%</span></dd><dd>Selects one of nine regions at random.</dd></div><div><dt>vs. Away</dt><dd class="mobile-win-rate">73.1<span> &plusmn; 4.3%</span></dd><dd>Selects the region farthest from the opponent.</dd></div></dl>
+        <details class="evaluation-details"><summary>Evaluation protocol</summary><p>200 simulated points per pair per seed, eight seeds, balanced across table side and initial receiver. Win rates are mean &plusmn; sample SD across seeds. The learned strategy selects by argmax, without target jitter. The motor actor, observation normalizer, planner, and joint controller are fixed for all selectors.</p></details>
+      </div>
+    </section>
+
     <section id="research" class="section abstract-section" aria-labelledby="abstract-heading">
       <div class="reading-width">
         <h2 id="abstract-heading">Abstract</h2>
@@ -161,16 +172,16 @@
       <div class="container">
         <div class="section-heading"><h2 id="targets-heading">Target-conditioned returns</h2><p>One motor policy returns the ball to different landing targets.</p></div>
         <div class="execution-gallery">
-          <figure class="target-screen" id="target-panel" role="tabpanel" aria-labelledby="target-tab-all">
-            <div class="media-frame"><video id="target-video" controls muted loop playsinline preload="none" poster="assets/images/posters/tp8.jpg" aria-label="Overview of all nine real-robot landing targets"><source src="assets/videos/web/target-8.mp4" type="video/mp4"></video></div>
-            <div class="media-caption"><span id="target-label">All nine landing targets</span><span class="recording-tag">Real robot</span></div>
+          <figure class="target-screen" id="target-panel" role="tabpanel" aria-labelledby="target-tab-4">
+            <div class="media-frame"><video id="target-video" controls muted loop playsinline preload="none" poster="assets/images/posters/tp4.jpg" aria-label="Landing target 4, real robot"><source src="assets/videos/web/target-4.mp4" type="video/mp4"></video></div>
+            <div class="media-caption"><span id="target-label">Landing target 4</span><span class="recording-tag">Real robot</span></div>
             <div class="target-tabs" role="tablist" aria-label="Real-robot landing-target recordings">
-              <button id="target-tab-all" type="button" role="tab" aria-selected="true" aria-controls="target-panel" tabindex="0" data-target="all" aria-label="Overview of all nine targets"><svg class="icon" aria-hidden="true"><use href="static/icons/lucide.svg#grid-3x3"></use></svg><span>All</span></button>
+              <button id="target-tab-all" type="button" role="tab" aria-selected="false" aria-controls="target-panel" tabindex="-1" data-target="all" aria-label="Overview of all nine targets"><svg class="icon" aria-hidden="true"><use href="static/icons/lucide.svg#grid-3x3"></use></svg><span>All</span></button>
               <button id="target-tab-0" type="button" role="tab" aria-selected="false" aria-controls="target-panel" tabindex="-1" data-target="0" aria-label="Landing target 0">0</button>
               <button id="target-tab-1" type="button" role="tab" aria-selected="false" aria-controls="target-panel" tabindex="-1" data-target="1" aria-label="Landing target 1">1</button>
               <button id="target-tab-2" type="button" role="tab" aria-selected="false" aria-controls="target-panel" tabindex="-1" data-target="2" aria-label="Landing target 2">2</button>
               <button id="target-tab-3" type="button" role="tab" aria-selected="false" aria-controls="target-panel" tabindex="-1" data-target="3" aria-label="Landing target 3">3</button>
-              <button id="target-tab-4" type="button" role="tab" aria-selected="false" aria-controls="target-panel" tabindex="-1" data-target="4" aria-label="Landing target 4">4</button>
+              <button id="target-tab-4" type="button" role="tab" aria-selected="true" aria-controls="target-panel" tabindex="0" data-target="4" aria-label="Landing target 4">4</button>
               <button id="target-tab-5" type="button" role="tab" aria-selected="false" aria-controls="target-panel" tabindex="-1" data-target="5" aria-label="Landing target 5">5</button>
               <button id="target-tab-6" type="button" role="tab" aria-selected="false" aria-controls="target-panel" tabindex="-1" data-target="6" aria-label="Landing target 6">6</button>
               <button id="target-tab-7" type="button" role="tab" aria-selected="false" aria-controls="target-panel" tabindex="-1" data-target="7" aria-label="Landing target 7">7</button>
@@ -188,18 +199,22 @@
     <section id="method" class="section method-section" aria-labelledby="method-heading">
       <div class="container">
         <div class="section-heading"><h2 id="method-heading">Three-stage training</h2><p>The strategy chooses where the ball should land; the motor policy executes the return.</p></div>
-        <figure class="research-figure"><button class="figure-button" type="button" data-enlarge="assets/images/method_overview.png" data-caption="Three-stage training and the persistent landing-target interface" aria-label="Enlarge the method overview" title="Enlarge the method overview"><img src="assets/images/method_overview.png" alt="Target-conditioned motor training, interaction-driven motor self-play, and frozen-executor strategic self-play" width="1855" height="834" loading="lazy"></button></figure>
+        <figure class="research-figure"><button class="figure-button" type="button" data-enlarge="assets/images/method_overview.png" data-caption="Three-stage training and the persistent landing-target interface" aria-label="Enlarge the method overview" title="Enlarge the method overview"><img src="assets/images/method-training.png" alt="Target-conditioned motor training, interaction-driven motor self-play, and frozen-executor strategic self-play" width="1855" height="365" loading="lazy"></button></figure>
         <div class="learning-stages">
           <article><span class="stage-number">I</span><h3>Motor training</h3><p>The motor policy first learns to return prescribed balls to requested landing targets.</p></article>
           <article><span class="stage-number">II</span><h3>Motor self-play</h3><p>Self-play adapts it to rally-generated balls, with targets sampled independently of opponent position.</p></article>
           <article><span class="stage-number">III</span><h3>Strategic self-play</h3><p>The motor stack is then frozen while competitive self-play learns where to return.</p></article>
+        </div>
+        <div class="method-interface">
+          <div class="result-heading"><h3>From landing target to joint commands</h3><p>The same landing target conditions the strike planner and whole-body controller.</p></div>
+          <figure class="research-figure"><button class="figure-button" type="button" data-enlarge="assets/images/method_overview.png" data-caption="The landing-target interface connecting strategy, strike planning and whole-body execution" aria-label="Enlarge the execution interface" title="Enlarge the execution interface"><img src="assets/images/method-interface.png" alt="A strategic landing target conditions the model-based strike planner and the frozen motor policy, which produces 29 joint-position targets" width="1855" height="384" loading="lazy"></button></figure>
         </div>
       </div>
     </section>
 
     <section id="results" class="section results-section" aria-labelledby="results-heading">
       <div class="container">
-        <div class="section-heading"><h2 id="results-heading">Results</h2></div>
+        <div class="section-heading"><h2 id="results-heading">Execution and target selection</h2></div>
         <nav class="result-navigation" aria-label="Research results"><a href="#result-execution">Landing accuracy</a><a href="#result-rallies">Motor self-play</a><a href="#result-competition">Strategy comparison</a><a href="#result-sensitivity">Target selection</a></nav>
 
         <article id="result-execution" class="result-block" aria-labelledby="execution-result-heading">
@@ -230,13 +245,6 @@
             <figure><button class="figure-button" type="button" data-enlarge="assets/images/result-rally-legal-returns.png" data-caption="Legal-return rate across rally depth: three training conditions, mean plus or minus 1 SEM" aria-label="Enlarge rally legal-return rate" title="Enlarge rally legal-return rate"><img src="assets/images/result-rally-legal-returns.png" alt="Interaction-driven self-play has higher legal-return rates than both comparison conditions across rally depth" width="910" height="860" loading="lazy"></button></figure>
           </div>
           <details class="evaluation-details"><summary>Evaluation protocol</summary><p>30,000 rallies per checkpoint per seed, eight seeds, one fixed opponent. Curves are equal-weight seed means &plusmn;1 SEM. Rates count every return opportunity reaching each stroke index, including unsuccessful returns.</p></details>
-        </article>
-
-        <article id="result-competition" class="result-block" aria-labelledby="competition-result-heading">
-          <div class="result-heading"><h3 id="competition-result-heading">Strategy comparison in simulation</h3><p>In simulated games, the learned selector wins more points than Center, Random, and Away using the same frozen motor stack.</p></div>
-          <figure class="win-rate-figure"><button class="figure-button" type="button" data-enlarge="assets/images/competitive_selection_results.png" data-caption="Learned selector point win rates under matched frozen motor execution" aria-label="Enlarge competitive results" title="Enlarge competitive results"><img src="assets/images/competitive_selection_results.png" alt="Learned target selection wins 88.9 plus or minus 1.4 percent against Center, 81.9 plus or minus 2.0 percent against Random, and 73.1 plus or minus 4.3 percent against Away" width="1084" height="429" loading="lazy"></button></figure>
-          <dl class="baseline-definitions"><div><dt>Center</dt><dd class="mobile-win-rate">88.9<span> &plusmn; 1.4%</span></dd><dd>Always selects the center region.</dd></div><div><dt>Random</dt><dd class="mobile-win-rate">81.9<span> &plusmn; 2.0%</span></dd><dd>Selects one of nine regions at random.</dd></div><div><dt>Away</dt><dd class="mobile-win-rate">73.1<span> &plusmn; 4.3%</span></dd><dd>Selects the region farthest from the opponent.</dd></div></dl>
-          <details class="evaluation-details"><summary>Evaluation protocol</summary><p>200 simulated points per pair per seed, eight seeds, balanced across table side and initial receiver. Win rates are mean &plusmn; sample SD across seeds. The learned strategy selects by argmax, without target jitter. The motor actor, observation normalizer, planner, and joint controller are fixed for all selectors.</p></details>
         </article>
 
         <article id="result-sensitivity" class="result-block" aria-labelledby="sensitivity-result-heading">

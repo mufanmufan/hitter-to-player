@@ -36,7 +36,7 @@ button:focus-visible, a:focus-visible, summary:focus-visible { outline: 2px soli
 .icon-button:hover { background: var(--soft); }
 .skip-link { position: fixed; z-index: 100; top: 8px; left: 8px; padding: 8px 14px; background: #fff; transform: translateY(-180%); }
 .skip-link:focus { transform: none; }
-.site-header { position: sticky; top: 0; z-index: 30; background: rgba(255,255,255,.98); border-bottom: 1px solid var(--line); }
+.site-header { position: sticky; top: 0; z-index: 30; background: var(--paper); border-bottom: 1px solid var(--line); }
 .header-inner { display: flex; min-height: 64px; justify-content: space-between; align-items: center; gap: 24px; }
 .project-brand { display: inline-flex; align-items: center; flex: 0 0 auto; }
 .project-brand img { width: 128px; height: auto; }
@@ -81,6 +81,9 @@ figcaption { display: flex; justify-content: space-between; gap: 16px; margin-to
 .abstract-section { padding-top: 32px; }
 .abstract-section h2 { text-align: center; margin-bottom: 24px; }
 .abstract-section p { color: #454d57; margin-top: 20px; text-align: left; }
+.competition-section { border-bottom: 1px solid var(--line); }
+.competition-layout { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1.7fr); align-items: center; gap: 48px; }
+.competition-intro > p { margin-top: 18px; color: var(--muted); font-size: 18px; line-height: 1.75; }
 .section-heading { text-align: center; max-width: 810px; margin: 0 auto 30px; }
 .section-heading > p { max-width: 760px; margin: 16px auto 0; color: var(--muted); font-size: 18px; line-height: 1.75; }
 .matches-section, .method-section { background: var(--soft); border-block: 1px solid var(--line); }
@@ -101,7 +104,8 @@ figcaption { display: flex; justify-content: space-between; gap: 16px; margin-to
 .match-tabs .icon { width: 17px; height: 17px; }
 .match-note { margin-top: 15px; color: #5d6876; font-size: 16px; line-height: 1.75; text-align: center; }
 
-.execution-gallery { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 26px; }
+.execution-gallery { display: grid; grid-template-columns: minmax(0,1fr); gap: 48px; max-width: 900px; margin-inline: auto; }
+.simulation-screen { width: min(100%,760px); margin-inline: auto; }
 .target-tabs { display: grid; grid-template-columns: 1.7fr repeat(9,minmax(0,1fr)); margin-top: 17px; border: 1px solid var(--line); }
 .target-tabs button { display: inline-flex; align-items: center; justify-content: center; gap: 5px; height: 46px; padding: 0; border: 0; border-right: 1px solid var(--line); border-radius: 0; background: #fff; color: #596573; font-size: 16px; font-weight: 600; transition: color .16s ease, background .16s ease; }
 .target-tabs button:last-child { border-right: 0; }
@@ -117,6 +121,7 @@ figcaption { display: flex; justify-content: space-between; gap: 16px; margin-to
 .stage-number { position: absolute; top: 19px; left: 0; color: #687480; font-size: 17px; font-weight: 600; }
 .learning-stages h3 { font-size: 20px; }
 .learning-stages p { margin-top: 12px; color: #5c6875; font-size: 18px; line-height: 1.75; }
+.method-interface { margin-top: 48px; padding-top: 32px; border-top: 1px solid var(--line); }
 .result-navigation { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); border-block: 1px solid var(--line); }
 .result-navigation a { display: flex; align-items: center; justify-content: center; min-height: 58px; padding: 12px; color: var(--muted); font-size: 16px; font-weight: 600; text-align: center; line-height: 1.6; }
 .result-navigation a:hover { color: var(--accent); background: var(--soft); }
@@ -182,6 +187,8 @@ figcaption { display: flex; justify-content: space-between; gap: 16px; margin-to
   .score { gap: 6px; }
   .score b { font-size: 26px; }
   .execution-gallery { grid-template-columns: 1fr; gap: 34px; }
+  .competition-layout { grid-template-columns: 1fr; gap: 28px; }
+  .competition-intro { max-width: 760px; }
   .learning-stages { gap: 22px; }
   .landing-results, .rally-results, .sensitivity-maps { gap: 26px; }
 }
